@@ -14,4 +14,12 @@ public class Token<Value> {
     public Value symbol() {
 	return symbol;
     }
+
+    public String toString() {
+	return "{"+name+", "+symbol+"}";
+    }
+
+    public boolean equals(Token<Value> t) {
+	return name.equals(t.name());
+    }
 }

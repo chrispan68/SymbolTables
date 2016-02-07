@@ -8,20 +8,26 @@ Java Syntax Interpreter
 
 Output:
 $ java Interpreter
->>> 2-2
-0
->>> 2+2-2
-2
->>> 2+4+3+2-2
-9
->>> 22-7+  1
-16
+>>> 2/2
+1
+>>> 2*   7
+14
+>>> 2  /5 +1*4
+4
+>>> 30/  2 * 6-  1
+89
+>>> 78*14+   3/3
+1093
  */
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Interpreter {
-    public static final String EOF = "EOF",INT="INT",PLUS="PLUS",MINUS="MINUS";
+    // binary operations
+    public static final HashMap<Character,Token<BinaryOperation>> ops =
+	(new SymbolTable()).getTable();
+    public static final String EOF = "EOF",INT="INT";
     public static final char EMPTY = '\0';
     private String text;
     private int pos;
@@ -36,11 +42,9 @@ public class Interpreter {
     }
     
     public void error() {
-	throw new Error("input parsing error");	  // unchecked program cannot recover
-	// may also use runtime error but this is discouraged
-
-	//throw new Exception("parsing error");  // checked must be caught
-	// program can recover through exception handling
+	throw new Error("syntax error");  // later switch to Exceptions
+	// because program can recover through exception handling
+	// throw new Exception("syntax error");  // checked must be caught
 	// "throws Exception" for each method that uses it
     }
 
@@ -80,15 +84,11 @@ public class Interpreter {
 		return new Token<Integer>(INT, extractInt());
 	    }
 
-	    if(curr_char=='+') {
+	    if(ops.containsKey(curr_char)) {
+		Token<BinaryOperation> res = ops.get(curr_char);
 		increment();
-		return new Token<Character>(PLUS,'+');
-	    }
-	    
-	    if(curr_char=='-') {
-		increment();
-		return new Token<Character>(MINUS,'-');
-	    }	    
+		return res;
+	    }	    	    
 	}
 
 	return new Token<Character>(EOF,EMPTY);
@@ -111,31 +111,35 @@ public class Interpreter {
 	eat(INT);
 	return curr.symbol();
     }
+
+    public int nextTerm() {
+	int res = nextInt();
+
+	while(curr_token.equals(ops.get('*')) || curr_token.equals(ops.get('/'))) {
+	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
+	    eat(curr_token.name());
+	    res = bop.operate(res,nextInt());
+	}	
+	
+	return res;
+    }
     
     // calculator evaluates arithmetic expressions
     public int eval() {
 	update();
-	int res = nextInt();
+	int res = nextTerm();
 
-	// operation object
-	/* while token is operation
-	   eat operation
-	   operate on result
-	 */
-	while(curr_token.name().equals(PLUS) || curr_token.name().equals(MINUS)) {
-	    if(curr_token.name().equals(PLUS)) {
-		eat(PLUS);
-		res += nextInt();
-	    } else {
-		eat(MINUS);
-		res -= nextInt();
-	    }	       
-	}
+	//while(ops.containsValue(curr_token)) {	
+	while(curr_token.equals(ops.get('+')) || curr_token.equals(ops.get('-'))) {
+	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
+	    eat(curr_token.name());
+	    res = bop.operate(res,nextTerm());
+	}	
 	
 	return res;
     }
 
-    public static void main(String[]args) {
+    public static void main(String[]args) {	
 	Scanner in = new Scanner(System.in);
 	while(true) {
 	    System.out.print(">>> ");
