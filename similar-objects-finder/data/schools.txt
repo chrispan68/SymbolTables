@@ -1,0 +1,12 @@
+Name	1Type	1Temperature	2Distance
+Dominican	Rural	Hot	500
+North Pole	Rural	Cold	2000
+France	Urban	Average	200
+Tuscany	Rural	Hot	680
+Princeton	Urban	Average	10
+Peru	Rural	Hot	1000
+Mexico City	Urban	Hot	940
+Greenland	Rural	Cold	1450
+Iceland	Rural	Cold	1250
+Pyongyang	Urban	Average	2400
+PhilLand	Urban	Hot	666

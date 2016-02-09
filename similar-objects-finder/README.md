@@ -16,6 +16,6 @@ line being a header.
 The first column shall be a unique identifier for items, such as a name. Each
 other column header shall be preceded by a 1 or 0.
 
-- 1: discrete options
+- 1: discrete options	
 - 2: numerical comparisons
 
