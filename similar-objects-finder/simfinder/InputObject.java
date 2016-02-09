@@ -9,8 +9,8 @@ private class InputObject {
     FieldValue[] attributes;
     String id;
 
-    /* attrs should be a mapping of field headers to values */
-    public InputObject(String id, Map<String, String> attrs) {
+    /* headers map to values by index */
+    public InputObject(String id, String[] headers, String[] values) {
 
     }
     
