@@ -18,6 +18,12 @@ $ java Interpreter
 89
 >>> 78*14+   3/3
 1093
+>>> 1*(2+3)
+5
+>>> 1* (2/(9   -7))
+1
+>>> 10*(2/(33 -(4*(2-2)) +6) + 1)
+10
  */
 
 import java.util.HashMap;
@@ -27,7 +33,7 @@ public class Interpreter {
     // binary operations
     public static final HashMap<Character,Token<BinaryOperation>> ops =
 	(new SymbolTable()).getTable();
-    public static final String EOF = "EOF",INT="INT";
+    public static final String EOF = "EOF",INT="INT",LPAR="LPAR",RPAR="RPAR";
     public static final char EMPTY = '\0';
     private String text;
     private int pos;
@@ -39,6 +45,7 @@ public class Interpreter {
 	pos = 0;
 	curr_token = null;
 	curr_char = text.charAt(pos);
+	update();	
     }
     
     public void error() {
@@ -88,7 +95,19 @@ public class Interpreter {
 		Token<BinaryOperation> res = ops.get(curr_char);
 		increment();
 		return res;
-	    }	    	    
+	    }
+
+	    if(curr_char=='(') {
+		increment();
+		return new Token<Character>(LPAR, '(');
+	    }
+
+	    if(curr_char==')') {
+		increment();
+		return new Token<Character>(RPAR, ')');
+	    }
+
+	    error();
 	}
 
 	return new Token<Character>(EOF,EMPTY);
@@ -107,9 +126,23 @@ public class Interpreter {
     }
 
     public int nextInt() {
-	Token<Integer> curr = (Token<Integer>)curr_token;
-	eat(INT);
-	return curr.symbol();
+	if(curr_token.name().equals(INT)) {	    
+	    Token<Integer> curr = (Token<Integer>)curr_token;
+	    eat(INT);
+	    return curr.symbol();
+	}
+
+	else if(curr_token.name().equals(LPAR)) {
+	    eat(LPAR);
+	    int res = eval();
+	    eat(RPAR);
+	    return res;
+	}
+
+	else {
+	    error();
+	    return 0;
+	}
     }
 
     public int nextTerm() {
@@ -126,10 +159,8 @@ public class Interpreter {
     
     // calculator evaluates arithmetic expressions
     public int eval() {
-	update();
 	int res = nextTerm();
-
-	//while(ops.containsValue(curr_token)) {	
+	
 	while(curr_token.equals(ops.get('+')) || curr_token.equals(ops.get('-'))) {
 	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
 	    eat(curr_token.name());
