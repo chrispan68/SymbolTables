@@ -20,7 +20,11 @@ private class FieldValue {
 	public int hashCode(){
 		return header.hashCode() + value.hashCode();`
 	}
-	
+//setValue method for the client's input.
+	public void setValue(String v){
+		value = v;
+	}
+
 	public String getHeader(){
 		return header;
 	}
