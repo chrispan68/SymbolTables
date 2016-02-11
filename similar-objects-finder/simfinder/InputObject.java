@@ -6,8 +6,8 @@ package simfinder;
 */
 private class InputObject {
     
-    FieldValue[] attributes;
-    String id;
+    private FieldValue[] attributes;
+    private String id;
 
     /* headers map to values by index */
     public InputObject(String oid, String[] headers, String[] values) {
@@ -21,5 +21,12 @@ private class InputObject {
 	    attributes[i] = new FieldValue(headers[i], values[i]);
 	}
     }
-    
+
+    public FieldValue[] getFields() {
+	return attributes;
+    }
+
+    public String getId() {
+	return id;
+    }
 }
