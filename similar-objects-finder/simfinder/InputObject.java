@@ -10,8 +10,16 @@ private class InputObject {
     String id;
 
     /* headers map to values by index */
-    public InputObject(String id, String[] headers, String[] values) {
-
+    public InputObject(String oid, String[] headers, String[] values) {
+	if (headers.length != values.length) {
+	    // Sanity Check
+	    throw new RuntimeException("Mismatched headers and values!");
+	}
+	attributes = new FieldValue[headers.length];
+	id = oid;
+	for (int i = 0; i < attributes.length; i++) {
+	    attributes[i] = new FieldValue(headers[i], values[i]);
+	}
     }
     
 }
