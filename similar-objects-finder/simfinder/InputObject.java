@@ -15,10 +15,10 @@ private class InputObject {
 	    // Sanity Check
 	    throw new RuntimeException("Mismatched headers and values!");
 	}
-	attributes = new FieldValue[headers.length];
-	id = oid;
-	for (int i = 0; i < attributes.length; i++) {
-	    attributes[i] = new FieldValue(headers[i], values[i]);
+		attributes = new FieldValue[headers.length];
+		id = oid;
+		for (int i = 0; i < attributes.length; i++) {
+		    attributes[i] = new FieldValue(headers[i], values[i]);
 	}
     }
 
