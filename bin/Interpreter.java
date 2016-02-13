@@ -1,12 +1,11 @@
 /**   
 Compilation: javac Interpreter.java
 Execution: java Interpreter
-Dependencies: Token.java
 
 Java Syntax Interpreter
 @author Alex Chen
 
-Output:
+Sample Output:
 $ java Interpreter
 >>> 2/2
 1
@@ -30,91 +29,22 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Interpreter {
-    // binary operations
-    public static final HashMap<Character,Token<BinaryOperation>> ops =
-	(new SymbolTable()).getTable();
     public static final String EOF = "EOF",INT="INT",LPAR="LPAR",RPAR="RPAR";
     public static final char EMPTY = '\0';
-    private String text;
-    private int pos;
     private Token curr_token;
-    private char curr_char;
+    private Lexer lex;
 
     public Interpreter(String text) {
-	this.text = text;
-	pos = 0;
-	curr_token = null;
-	curr_char = text.charAt(pos);
-	update();	
+	lex = new Lexer(text);
+	curr_token = lex.next();	
     }
     
     public void error() {
-	throw new Error("syntax error");  // later switch to Exceptions
-	// because program can recover through exception handling
-	// throw new Exception("syntax error");  // checked must be caught
-	// "throws Exception" for each method that uses it
-    }
-
-    // increment position pointer
-    public void increment() {
-	pos++;
-	if(pos > text.length() - 1) {
-	    curr_char = EMPTY;	    
-	} else {
-	    curr_char = text.charAt(pos);
-	}
-    }
-    
-    public void skipSpace() {
-	while(curr_char != EMPTY && Character.isSpace(curr_char))
-	    increment();
-    }
-
-    public int extractInt() {
-	String res = "";
-	while(curr_char != EMPTY && Character.isDigit(curr_char)) {
-	    res += curr_char;
-	    increment();
-	}
-
-	return Integer.parseInt(res);
-    }
-
-    public Token next() {
-	while(curr_char!=EMPTY) {
-	    if(Character.isSpace(curr_char)) {
-		skipSpace();
-		continue;
-	    }
-	
-	    if(Character.isDigit(curr_char)) {
-		return new Token<Integer>(INT, extractInt());
-	    }
-
-	    if(ops.containsKey(curr_char)) {
-		Token<BinaryOperation> res = ops.get(curr_char);
-		increment();
-		return res;
-	    }
-
-	    if(curr_char=='(') {
-		increment();
-		return new Token<Character>(LPAR, '(');
-	    }
-
-	    if(curr_char==')') {
-		increment();
-		return new Token<Character>(RPAR, ')');
-	    }
-
-	    error();
-	}
-
-	return new Token<Character>(EOF,EMPTY);
+	throw new Error("Syntax Error");
     }
 
     public void update() {
-	curr_token = next();
+	curr_token = lex.next();
     }
 
     public void eat(String name) {
@@ -148,7 +78,7 @@ public class Interpreter {
     public int nextTerm() {
 	int res = nextInt();
 
-	while(curr_token.equals(ops.get('*')) || curr_token.equals(ops.get('/'))) {
+	while(curr_token.equals(Lexer.ops.get('*')) || curr_token.equals(Lexer.ops.get('/'))) {
 	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
 	    eat(curr_token.name());
 	    res = bop.operate(res,nextInt());
@@ -161,7 +91,7 @@ public class Interpreter {
     public int eval() {
 	int res = nextTerm();
 	
-	while(curr_token.equals(ops.get('+')) || curr_token.equals(ops.get('-'))) {
+	while(curr_token.equals(Lexer.ops.get('+')) || curr_token.equals(Lexer.ops.get('-'))) {
 	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
 	    eat(curr_token.name());
 	    res = bop.operate(res,nextTerm());
