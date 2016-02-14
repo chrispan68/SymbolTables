@@ -31,82 +31,50 @@ import java.util.Scanner;
 public class Interpreter {
     public static final String EOF = "EOF",INT="INT",LPAR="LPAR",RPAR="RPAR";
     public static final char EMPTY = '\0';
-    private Token curr_token;
-    private Lexer lex;
+    private Parser p;
 
-    public Interpreter(String text) {
-	lex = new Lexer(text);
-	curr_token = lex.next();	
+    public Interpreter(Parser par) {
+	p = par;
     }
     
     public void error() {
 	throw new Error("Syntax Error");
     }
 
-    public void update() {
-	curr_token = lex.next();
+    public int visitBinOpNode(BinOpNode bon) {
+	return bon.root().symbol().operate(visit(bon.left()),visit(bon.right()));
     }
 
-    public void eat(String name) {
-	if(curr_token.name().equals(name)) {
-	    update();
+    public int visitNumNode(NumNode nn) {
+	return nn.value();
+    }
+
+    // generalize visit method
+    public int visit(AST node) {
+	Token t = node.root();
+	if(Lexer.ops.containsValue(t)) {
+	    return visitBinOpNode((BinOpNode)node);
+	} else if(t.name().equals("INT")) {
+	    return visitNumNode(new NumNode(new Token<Integer>(t.name(),(int)t.symbol())));
 	} else {
-	    error();
-	}
-    }
-
-    public int nextInt() {
-	if(curr_token.name().equals(INT)) {	    
-	    Token<Integer> curr = (Token<Integer>)curr_token;
-	    eat(INT);
-	    return curr.symbol();
-	}
-
-	else if(curr_token.name().equals(LPAR)) {
-	    eat(LPAR);
-	    int res = eval();
-	    eat(RPAR);
-	    return res;
-	}
-
-	else {
-	    error();
 	    return 0;
 	}
     }
 
-    public int nextTerm() {
-	int res = nextInt();
-
-	while(curr_token.equals(Lexer.ops.get('*')) || curr_token.equals(Lexer.ops.get('/'))) {
-	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
-	    eat(curr_token.name());
-	    res = bop.operate(res,nextInt());
-	}	
-	
-	return res;
+    public int interpret() {
+	AST syntax_tree = p.eval();
+	return visit(syntax_tree);
     }
     
-    // calculator evaluates arithmetic expressions
-    public int eval() {
-	int res = nextTerm();
-	
-	while(curr_token.equals(Lexer.ops.get('+')) || curr_token.equals(Lexer.ops.get('-'))) {
-	    BinaryOperation bop = (BinaryOperation)curr_token.symbol();	    
-	    eat(curr_token.name());
-	    res = bop.operate(res,nextTerm());
-	}	
-	
-	return res;
-    }
-
     public static void main(String[]args) {	
 	Scanner in = new Scanner(System.in);
 	while(true) {
 	    System.out.print(">>> ");
 	    String text = in.nextLine();
-	    Interpreter z = new Interpreter(text);
-	    int res = z.eval();
+	    Lexer lex = new Lexer(text);
+	    Parser p = new Parser(lex);
+	    Interpreter z = new Interpreter(p);
+	    int res = z.interpret();
 	    System.out.println(res);
 	}
     }

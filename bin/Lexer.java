@@ -25,7 +25,7 @@ public class Lexer {
     }
     
     public void error() {
-	throw new Error("syntax error");
+	throw new Error("Invalid character");
     }
 
     // increment position pointer
