@@ -5,6 +5,11 @@ Execution: java Interpreter
 Java Syntax Interpreter
 @author Alex Chen
 
+Parser generates a syntax tree representing arithmetic expressions
+Follows rules according to the Lexer's symbol table
+Interpreter traverses the tree to evaluate the expression
+Calculator supports all basic operations + - * / and parentheses ( )
+
 Sample Output:
 $ java Interpreter
 >>> 2/2
