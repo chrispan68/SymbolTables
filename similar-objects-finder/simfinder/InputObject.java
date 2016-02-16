@@ -4,7 +4,7 @@ package simfinder;
    Contains parsed input for a single object of data.
    TODO: accessor methods
 */
-private class InputObject {
+public class InputObject {
     
     private FieldValue[] attributes;
     private String id;
