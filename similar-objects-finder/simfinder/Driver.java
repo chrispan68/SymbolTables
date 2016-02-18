@@ -1,5 +1,5 @@
 package simfinder;
-import java.util.Scanner;
+import java.util.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +17,8 @@ public class Driver {
 			}
 			v.setValue(getUserInput());
 		}
+
+		Map<String,Float> points = c.calculate(blankFields);
 	}
 
 	public static String getUserInput(){
