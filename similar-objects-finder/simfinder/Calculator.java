@@ -25,11 +25,6 @@ public class Calculator {
 	fieldset.toArray(fields);
     }
 
-    public void getInput(){
-        Scanner sc = new Scanner(System.in);
-
-    }
-
     /** Awards points to schools that appear in the data for the given
 	FieldValues */
 
