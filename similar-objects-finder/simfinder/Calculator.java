@@ -34,19 +34,31 @@ public class Calculator {
 
     /** Awards points to schools that appear in the data for the given
 	FieldValues */
-    public Map<String, Float> calculate(FieldValue[] target) {
+    public String[] calculate(FieldValue[] target,int numOfResults) {
     	Map<String, Float> points = new HashMap<String, Float>();
+        String [] results = new String[numOfResults];
         for(int i =0; i<target.length;i++){
             Set<String> matchedIds = data.get(target[i]);
             for(String currentId: matchedIds){
                 if(points.containsKey(currentId)){
-                        points.put(currentId,points.get(currentId)+1.0f); //1 is random number of points that is added if it matches, not sure what 
-                    }else{                                               //we want to do
+                        points.put(currentId,points.get(currentId)+1.0f); 
+                    }else{                                               
                         points.put(currentId,1.0f);
                     }
+                    setMaxes(results,points,currentId);
             }
         }
-    	return points;
+    	return results;
+    }
+
+    private void setMaxes(String[] currentResults,Map<String,Float> points,String currentId){
+        for(String r: currentResults){
+            if(points.get(r)!=null && points.get(currentId)>points.get(r)){
+                r = currentId;
+                break;
+
+            }
+        }
     }
 
     /** Return an array of blank FieldValues, copies from fields. */

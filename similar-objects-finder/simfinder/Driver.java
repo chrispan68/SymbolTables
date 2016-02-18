@@ -17,13 +17,21 @@ public class Driver {
 			}
 			v.setValue(getUserInput());
 		}
+		System.out.println("Number of returned results?");
+		int numOfResults = Integer.parseInt(getUserInput());
 
-		Map<String,Float> points = c.calculate(blankFields);
+		String[] results = c.calculate(blankFields,numOfResults);
+		print(results);
 	}
 
 	public static String getUserInput(){
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
 
+    }
+    public static void print(String [] res){
+    	for(int i =0;i<res.length;i++){
+    		System.out.println(i+". "+res[i]);
+    	}
     }
 }
