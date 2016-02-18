@@ -8,7 +8,7 @@ public class Driver {
 		File f = new File(args[0]);
 		Calculator c = new Calculator(Parser.parseFile(f));
 		FieldValue[] blankFields = c.getBlankFields();
-		System.out.println("Please choose your preference for the following attribute.")
+		System.out.println("Please choose your preference for the following attribute.");
 		for(FieldValue v: blankFields){
 			String[] options = c.getOptionsFor(v.getHeader());
 			System.out.println("Options for "+v.getHeader()+": ");
