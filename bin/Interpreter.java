@@ -28,6 +28,10 @@ $ java Interpreter
 1
 >>> 10*(2/(33 -(4*(2-2)) +6) + 1)
 10
+>>> 2+-2
+0
+>>> 2++2
+4
  */
 
 import java.util.HashMap;
@@ -50,18 +54,40 @@ public class Interpreter {
 	return bon.root().symbol().operate(visit(bon.left()),visit(bon.right()));
     }
 
+    public int visitUnOpNode(UnOpNode uon) {
+	System.out.println(uon.root());
+	return uon.root().symbol().operate(visit(uon.child()));
+    }
+
     public int visitNumNode(NumNode nn) {
 	return nn.value();
     }
 
     // generalize visit method
-    public int visit(AST node) {
+    // getClass().getName()
+    public int visit(AST node) {	
 	Token t = node.root();
+	//System.out.println("++"+node);
+	//System.out.println(node.getClass());
+	//String class_name = node.getClass().toString();
+	String class_name = node.getClass().getName();
+	System.out.println(class_name);
+	if(class_name.equals("UnOpNode")) {
+	    return visitUnOpNode((UnOpNode)node);
+	} else if(class_name.equals("BinOpNode")) {
+	    return visitBinOpNode((BinOpNode)node);
+	}
+	
 	if(Lexer.ops.containsValue(t)) {
 	    return visitBinOpNode((BinOpNode)node);
 	} else if(t.name().equals("INT")) {
 	    return visitNumNode(new NumNode(new Token<Integer>(t.name(),(int)t.symbol())));
-	} else {
+	} /*else if(t.name().equals("PLUS") || t.name().equals("MINUS")) {
+	    //return visitUnOpNode((UnOpNode)node);
+	    //return visitBinOpNode((BinOpNode)node);
+	    //return visitBinOpNode(new BinOpNode(node.left(),new AddOp(),node.right()));
+	    }*/
+	else {
 	    return 0;
 	}
     }

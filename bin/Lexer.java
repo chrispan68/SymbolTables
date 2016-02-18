@@ -15,7 +15,6 @@ public class Lexer {
     public static final char EMPTY = '\0';
     private String text;
     private int pos;
-    private Token curr_token;
     private char curr_char;
 
     public Lexer(String text) {
@@ -65,7 +64,18 @@ public class Lexer {
 	    }
 
 	    if(ops.containsKey(curr_char)) {
+		//Token<Functor> res = (Token<Functor>)(ops.get(curr_char));
+		if(curr_char=='+') {
+		    increment();
+		    //return new Token<Functor>("PLUS", new Plus());
+		    return new Token<Functor>("PLUS", null);		    
+		}
+		if(curr_char=='-') {
+		    increment();
+		    return new Token<Functor>("MINUS", new Minus());
+		}		
 		Token<BinaryOperation> res = ops.get(curr_char);
+		//System.out.println("+"+res);
 		increment();
 		return res;
 	    }
