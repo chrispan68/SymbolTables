@@ -36,12 +36,12 @@ public class Calculator {
 	FieldValues */
     public ArrayList<String> calculate(FieldValue[] target,int numOfResults) {
     	Map<String, Float> points = new HashMap<String, Float>();
-        for(int i =0; i<target.length;i++){
-            Set<String> matchedIds = data.get(target[i]);
-            for(String currentId: matchedIds){
-                if(points.containsKey(currentId)){
+        for(int i =0; i<target.length;i++){ //Goes through each of the fieldValues for the clients target attributes
+            Set<String> matchedIds = data.get(target[i]); //Gets the set of IDs of places which have the current fieldValue 
+            for(String currentId: matchedIds){            //value (for example, all which have temperature value of cold.)
+                if(points.containsKey(currentId)){ //If the college has already been added, adds on 1 point
                         points.put(currentId,points.get(currentId)+1.0f); 
-                }else{                                               
+                }else{                                               //if it hasn't creates it with 1 point.
                     points.put(currentId,1.0f);
                 }
                 

@@ -9,13 +9,18 @@ public class Driver {
 		Calculator c = new Calculator(Parser.parseFile(f));
 		FieldValue[] blankFields = c.getBlankFields();
 		System.out.println("Please choose your preference for the following attribute.");
-		for(FieldValue v: blankFields){
-			String[] options = c.getOptionsFor(v.getHeader());
-			System.out.println("Options for "+v.getHeader()+": ");
+		int i=0;
+		while(i<blankFields.length){
+			String[] options = c.getOptionsFor(blankFields[i].getHeader());
+			System.out.println("Options for "+blankFields[i].getHeader()+": ");
 			for(String option: options){
 				System.out.println(option);
 			}
-			v.setValue(getUserInput());
+			String input = getUserInput();
+			blankFields[i].setValue(input);
+			if(Arrays.asList(options).contains(input))
+				i++;
+
 		}
 		System.out.println("Number of returned results?");
 		int numOfResults = Integer.parseInt(getUserInput());
@@ -29,7 +34,7 @@ public class Driver {
         return sc.nextLine();
 
     }
-    public static void print(ArrayList<String> res){
+    public static void print(ArrayList<String> res){ //Used to print the results from an arrayList
     	for(int i =0;i<res.size();i++){
     		System.out.println((i+1)+". "+res.get(i));
     	}
