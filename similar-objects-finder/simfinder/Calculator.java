@@ -5,12 +5,14 @@ import java.util.*;
 public class Calculator {
     
     private Map<FieldValue, Set<String>> data;
+    private Map<String, Set<String>> options;
     private String[] fields;
     
     /** Takes a mapping of object names/ids to mapping of
 	Should fill out the fields and data variables. */
     public Calculator(ArrayList<InputObject> input) {
 	data = new HashMap<FieldValue, Set<String>>();
+	options = new HashMap<String, Set<String>>();
 	Set<String> fieldset = new HashSet<String>(input.get(0).getFields().length);
 	for(InputObject i : input) {
 	    for (FieldValue f : i.getFields()) {
@@ -19,6 +21,11 @@ public class Calculator {
 		}
 		data.get(f).add(i.getId());
 		fieldset.add(f.getHeader());
+		// Add to options Map
+		if (!options.containsKey(f.getHeader())) {
+		    options.put(f.getHeader(), new HashSet<String>());
+		}
+		options.get(f.getHeader()).add(f.getValue());
 	    }
 	}
 	fields = new String[fieldset.size()];
@@ -27,8 +34,6 @@ public class Calculator {
 
     /** Awards points to schools that appear in the data for the given
 	FieldValues */
-
-    
     public Map<String, Float> calculate(FieldValue[] target) {
     	Map<String, Float> points = new HashMap<String, Float>();
         for(int i =0; i<target.length;i++){
@@ -51,5 +56,11 @@ public class Calculator {
 	    a[i] = new FieldValue(fields[i]);
 	}
 	return a;
+    }
+
+    public String[] getOptionsFor(String header) {
+	String[] values = new String[options.get(header).size()];
+	options.get(header).toArray(values);
+	return values;
     }
 }
