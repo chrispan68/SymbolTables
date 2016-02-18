@@ -20,7 +20,7 @@ public class Driver {
 		System.out.println("Number of returned results?");
 		int numOfResults = Integer.parseInt(getUserInput());
 
-		String[] results = c.calculate(blankFields,numOfResults);
+		ArrayList<String> results = c.calculate(blankFields,numOfResults);
 		print(results);
 	}
 
@@ -29,9 +29,9 @@ public class Driver {
         return sc.nextLine();
 
     }
-    public static void print(String [] res){
-    	for(int i =0;i<res.length;i++){
-    		System.out.println(i+". "+res[i]);
+    public static void print(ArrayList<String> res){
+    	for(int i =0;i<res.size();i++){
+    		System.out.println((i+1)+". "+res.get(i));
     	}
     }
 }

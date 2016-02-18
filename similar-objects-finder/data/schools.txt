@@ -9,4 +9,4 @@ Mexico City	Urban	Hot	3
 Greenland	Rural	Cold	3
 Iceland	Rural	Cold	2
 Pyongyang	Urban	Average	4
-PhilLand	Urban	Hot	5
+PhilLand	Urban	Cold	2
