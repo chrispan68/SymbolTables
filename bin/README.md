@@ -1,5 +1,5 @@
 # Java Syntax Interpreter
-This is a Java-based interpreter that uses abstract syntax trees to parse and evaluate user input. The interpreter breaks down the code into chunks called *tokens,* and the parser then arranges the tokens into a syntax tree. The interpreter traverses each node of the tree and uses a symbol table (HashMap) to pair each token to its respective function. For example, a "+" character will be mapped to the addition operation. After the tree is completely traversed, the code will have been executed.
+This is a Java-based interpreter that uses abstract syntax trees to parse and evaluate user input. The interpreter breaks down the code into chunks called *tokens,* and the parser then arranges the tokens into a syntax tree. The interpreter traverses each node of the tree and uses a symbol table (HashMap) to pair each token to its respective value or function. For example, the token for '2' has the integer value 2, and a '+' character between two integer tokens will be mapped to the addition operation. After the tree is completely traversed, the code will have been executed.
 
 ## Compilation
 $ javac Interpreter.java
@@ -7,7 +7,7 @@ $ javac Interpreter.java
 $ java Interpreter
 
 ## Input
-The Interpreter.java program uses a Scanner which takes in user input. At present time, the interpreter acts like a basic calculator, so type a valid arithmetic expression into the Scanner (using ( , ) , + , - , * , / ). The interpreter will then print out the value of the expression. The program will run indefinetely until you exit (Ctrl+C in terminal).
+The Interpreter.java program uses a Scanner to read user input. The interpreter acts like a basic calculator, so type a valid arithmetic expression into the Scanner using ( , ) , + , - , * , /. The interpreter will then print out the value of the expression. The program will run indefinetely until you exit (Ctrl+C in terminal).
 
 ## Sample Session
 ```java
