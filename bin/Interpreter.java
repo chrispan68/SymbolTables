@@ -11,6 +11,8 @@ Parser generates a syntax tree representing arithmetic expressions
 Follows rules according to the Lexer's symbol table
 Interpreter traverses the tree to evaluate the expression
 Calculator supports all basic operations + - * / and parentheses ( )
+
+See README.md for more details on input format and sample output.
  */
 
 import java.util.Scanner;
@@ -26,19 +28,26 @@ public class Interpreter {
 	throw new Error("Syntax Error");
     }
 
+    /** operate on left and right children
+     */
     public int visitBinOpNode(BinOpNode bon) {
 	return bon.root().symbol().operate(visit(bon.left()),visit(bon.right()));
     }
 
+    /** operate on single child
+     */
     public int visitUnOpNode(UnOpNode uon) {
 	return uon.root().symbol().operate(visit(uon.child()));
     }
 
+    /** return integer value of node
+     */
     public int visitNumNode(NumNode nn) {
 	return nn.value();
     }
 
-    // generalize visit method
+    /** traverses and evaluates abstract syntax tree representation of arithmetic expression
+     */
     public int visit(AST node) {	
 	Token t = node.root();
 	String class_name = node.getClass().getName();

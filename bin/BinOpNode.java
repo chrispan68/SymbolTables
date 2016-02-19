@@ -1,3 +1,6 @@
+/**
+   AST represents binary operation with two children.
+*/
 public class BinOpNode extends AST<BinaryOperation> {
     private AST left, right;
 

@@ -17,6 +17,10 @@ public class Parser {
 	curr_token = lex.next();
     }
 
+    /** Parser consumes a sequence of tokens, digests them, and outputs an AST
+	for the Interpreter to evaluate. Here, Parser tries to "eat" the token
+	with given name and move on to the next token.
+     */
     public void eat(String name) {
 	if(curr_token.name().equals(name)) {
 	    update();
@@ -25,6 +29,8 @@ public class Parser {
 	}
     }
 
+    /** tokens with highest precedents
+     */
     public AST nextInt() {
 	String ctn = curr_token.name();
 	
@@ -51,6 +57,8 @@ public class Parser {
 	}
     }
 
+    /** returns AST of multiplication or division operations and their two operands
+     */
     public AST nextTerm() {
         AST res = nextInt();
 
@@ -63,7 +71,7 @@ public class Parser {
 	return res;
     }
     
-    /** calculator evaluates arithmetic expressions
+    /** returns AST representation of arithmetic expression
      */
     public AST eval() {
 	AST res = nextTerm();

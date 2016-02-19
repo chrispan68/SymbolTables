@@ -1,3 +1,7 @@
+/**
+   A chunk of special characters corresponds to a Token.
+   The Token has an ID name and a value which the Parser uses to build an AST.
+ */
 public class Token<Value> {
     private String name;
     private Value symbol;

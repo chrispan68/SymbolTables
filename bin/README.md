@@ -1,5 +1,5 @@
 # Java Syntax Interpreter
-This is a Java-based interpreter that uses abstract syntax trees to parse and evaluate user input. The interpreter breaks down the code into chunks called *tokens,* and the parser then arranges the tokens into a syntax tree. The interpreter traverses each node of the tree and uses a symbol table (HashMap) to pair each token to its respective value or function. For example, the token for '2' has the integer value 2, and a '+' character between two integer tokens will be mapped to the addition operation. After the tree is completely traversed, the code will have been executed.
+Arithmetic expressions and general computer programs can be represented by trees often called *abstract syntax trees* (AST). This program is a Java-based interpreter that uses AST's to parse and evaluate user input. The interpreter breaks down the code into chunks called *tokens,* and the parser then arranges the tokens into a syntax tree. The interpreter traverses each node of the tree and uses a symbol table (HashMap) to pair each token to its respective value or function. For example, the token for '2' has the integer value 2, and a '+' character between two integer tokens will be mapped to the addition operation. After the tree is completely traversed, the code will have been executed.
 
 ## Compilation
 $ javac Interpreter.java

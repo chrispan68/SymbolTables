@@ -1,3 +1,6 @@
+/**
+   AST represents a unary operation with single child.
+*/
 public class UnOpNode extends AST<UnaryOperation> {
     private AST child;
 

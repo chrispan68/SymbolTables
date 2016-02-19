@@ -5,10 +5,11 @@ public class Lexer {
     public static final HashMap<Character,Token<BinaryOperation>> ops =
 	(new SymbolTable()).getTable();
     public static final HashMap<String,BinaryOperation> tt =
-	(new SymbolTable()).tokenTable();    
+	(new SymbolTable()).tokenTable();
+    
     public static final String EOF = "EOF",INT="INT",LPAR="LPAR",RPAR="RPAR";
     public static final char EMPTY = '\0';
-    
+
     private String text;
     private int pos;
     private char curr_char;
@@ -33,12 +34,16 @@ public class Lexer {
 	    curr_char = text.charAt(pos);
 	}
     }
-    
+
+    /** skip whitespace
+     */
     public void skipSpace() {
 	while(curr_char != EMPTY && Character.isSpace(curr_char))
 	    increment();
     }
 
+    /** return integer represented by string of consecutive digits
+     */
     public int extractInt() {
 	String res = "";
 	while(curr_char != EMPTY && Character.isDigit(curr_char)) {
@@ -49,6 +54,8 @@ public class Lexer {
 	return Integer.parseInt(res);
     }
 
+    /** return token corresponding to next character(s)
+     */
     public Token next() {
 	while(curr_char!=EMPTY) {
 	    if(Character.isSpace(curr_char)) {

@@ -1,8 +1,13 @@
+/**
+   Symbol Table class with constants and token and operator hashmaps.
+ */
+
 import java.util.HashMap;
 
 public class SymbolTable {
+    public static final String PLUS="PLUS",MINUS="MINUS",MUL="MUL",DIV="DIV";    
     public static final char[] symbols = {'+','-','*','/'};    
-    public static final String[] names = {"PLUS","MINUS","MUL","DIV"};
+    public static final String[] names = {PLUS,MINUS,MUL,DIV};
     public static final BinaryOperation[] binary_ops = {
 	new AddOp(),
 	new SubtractOp(),

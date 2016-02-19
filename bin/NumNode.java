@@ -1,3 +1,6 @@
+/**
+   AST represents integer node.
+*/
 public class NumNode extends AST<Integer> {
     private int value;
 
