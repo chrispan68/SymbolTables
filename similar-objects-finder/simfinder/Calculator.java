@@ -36,12 +36,18 @@ public class Calculator {
 	FieldValues */
     public ArrayList<String> calculate(FieldValue[] target,int numOfResults) {
     	Map<String, Float> points = new HashMap<String, Float>();
-        for(int i =0; i<target.length;i++){ //Goes through each of the fieldValues for the clients target attributes
-            Set<String> matchedIds = data.get(target[i]); //Gets the set of IDs of places which have the current fieldValue 
-            for(String currentId: matchedIds){            //value (for example, all which have temperature value of cold.)
-                if(points.containsKey(currentId)){ //If the college has already been added, adds on 1 point
+	// Goes through each of the fieldValues for the client's
+	// target attributes
+        for(int i =0; i<target.length;i++){
+	    // Gets the set of IDs of places which have the current fieldValue 
+            Set<String> matchedIds = data.get(target[i]);
+            // value (for example, all which have temperature value of cold.)
+            for(String currentId: matchedIds){
+		// If the college has already been added, adds on 1 point
+                if(points.containsKey(currentId)){
                         points.put(currentId,points.get(currentId)+1.0f); 
-                }else{                                               //if it hasn't creates it with 1 point.
+                }else{
+		    // if it hasn't creates it with 1 point.
                     points.put(currentId,1.0f);
                 }
                 
@@ -51,29 +57,45 @@ public class Calculator {
     }
 
     private ArrayList<String> setMaxes(Map<String,Float> points,int numOfResults){
-        String [] allIds = (String[])points.keySet().toArray(new String[points.size()]); //changes all the keys of the hashmap into a String array
+	// changes all the keys of the hashmap into a String array
+        String [] allIds = (String[])points.keySet().toArray(new String[points.size()]);
         ArrayList<String> results = new ArrayList<String>();
-        for(int j =0;j<points.size();j++){ //going through the IDs from the point hashmap
-            Float rPoints = 0f, cPoints = points.get(allIds[j]); //sets the current point value from the current item on the points hashmap
+	// going through the IDs from the point hashmap
+        for(int j =0;j<points.size();j++){
+            Float rPoints = 0f, cPoints = points.get(allIds[j]);
+	    // sets the current point value from the current item on
+	    // the points hashmap
             int count = 0;
             boolean stillNeedsToAdd = true;
-            while(count+1<numOfResults && stillNeedsToAdd){ // makes it so if we have the number of results requested, it stop checking if it's greater.
-                if(count==results.size()){ //If the results is < the required num and we reach the end of the results,just add it to the end.
+	    // makes it so if we have the number of results requested, it
+	    // stop checking if it's greater.
+            while(count+1<numOfResults && stillNeedsToAdd){
+		// If the results is < the required num and we reach the
+		// end of the results,just add it to the end.
+                if(count==results.size()){
                     results.add(allIds[j]);
                     stillNeedsToAdd = false;
                 }
-                rPoints = points.get(results.get(count)); //if we aren't at the end of results, get the result points to compare
+		// if we aren't at the end of results, get the result points
+		// to compare
+                rPoints = points.get(results.get(count));
                 if(cPoints >= rPoints){
-                    results.add(count,allIds[j]); //if the current points are greater than res points, add current points to the spot.
+		    // if the current points are greater than res points, add
+		    // current points to the spot.
+                    results.add(count,allIds[j]);
                     stillNeedsToAdd = false;
                 }
-                if(results.size()>numOfResults){ //Trims it down so we don't have more than the requested number of results in the arrayList
+		// Trims it down so we don't have more than the requested
+		// number of results in the arrayList
+                if(results.size()>numOfResults){
                     results.remove(results.size()-1);
                 }
                 count++;
             }   
         }
-        for(int i =0;i<results.size();i++){ //Just a little code to make sure it's working, adds on the results to the points. Can remove later.
+	//Just a little code to make sure it's working, adds on the results
+	// to the points. Can remove later.
+        for(int i =0;i<results.size();i++){
             results.set(i,results.get(i)+" - "+points.get(results.get(i)));
         }
 
