@@ -1,18 +1,14 @@
-/**   
-Compilation: javac Lexer.java
-
-Java Syntax Interpreter
-@author Alex Chen
- */
-
 import java.util.HashMap;
 
 public class Lexer {
     // binary operations
     public static final HashMap<Character,Token<BinaryOperation>> ops =
 	(new SymbolTable()).getTable();
+    public static final HashMap<String,BinaryOperation> tt =
+	(new SymbolTable()).tokenTable();    
     public static final String EOF = "EOF",INT="INT",LPAR="LPAR",RPAR="RPAR";
     public static final char EMPTY = '\0';
+    
     private String text;
     private int pos;
     private char curr_char;
@@ -27,7 +23,8 @@ public class Lexer {
 	throw new Error("Invalid character");
     }
 
-    // increment position pointer
+    /** increment position pointer
+     */
     public void increment() {
 	pos++;
 	if(pos > text.length() - 1) {
@@ -64,18 +61,17 @@ public class Lexer {
 	    }
 
 	    if(ops.containsKey(curr_char)) {
-		//Token<Functor> res = (Token<Functor>)(ops.get(curr_char));
 		if(curr_char=='+') {
 		    increment();
-		    //return new Token<Functor>("PLUS", new Plus());
 		    return new Token<Functor>("PLUS", null);		    
 		}
+
 		if(curr_char=='-') {
 		    increment();
-		    return new Token<Functor>("MINUS", new Minus());
-		}		
+		    return new Token<Functor>("MINUS", null);
+		}
+		
 		Token<BinaryOperation> res = ops.get(curr_char);
-		//System.out.println("+"+res);
 		increment();
 		return res;
 	    }
