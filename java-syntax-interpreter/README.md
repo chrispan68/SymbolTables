@@ -33,3 +33,6 @@ $ java Interpreter
 >>> 2++2
 4
 ```
+
+## Other Notes
+I could have used regular expressions but those would defeat the purpose: I wanted to build as much from scratch as possible. In the future, one feature I may add is the ability to parse self-modifying code just as allowed by lisp macros or python's lambda expressions.
