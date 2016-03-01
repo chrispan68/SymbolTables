@@ -63,7 +63,7 @@ public class Calculator {
                     stillNeedsToAdd = false;
                 }
                 rPoints = points.get(results.get(count)); //if we aren't at the end of results, get the result points to compare
-                if(cPoints >= rPoints){
+                if(cPoints >= rPoints && stillNeedsToAdd){
                     results.add(count,allIds[j]); //if the current points are greater than res points, add current points to the spot.
                     stillNeedsToAdd = false;
                 }
