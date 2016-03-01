@@ -26,7 +26,7 @@ public class Driver {
 		System.out.print("Number of returned results? ");
 		int numOfResults = Integer.parseInt(getUserInput());
 
-		ArrayList<String> results = c.calculate(blankFields,numOfResults);
+		Map.Entry[] results = c.calculate(blankFields,numOfResults);
 		print(results);
 	}
 
@@ -35,9 +35,10 @@ public class Driver {
         return sc.nextLine();
 
     }
-    public static void print(ArrayList<String> res){ //Used to print the results from an arrayList
-    	for(int i =0;i<res.size();i++){
-    		System.out.println((i+1)+". "+res.get(i));
+    public static void print(Map.Entry[] res){ //Used to print the results from an arrayList
+    	for(int i =0;i<res.length;i++){
+	    System.out.print((i+1)+". "+res[i].getKey());
+	    System.out.println(" - " + res[i].getValue());
     	}
     }
 }
