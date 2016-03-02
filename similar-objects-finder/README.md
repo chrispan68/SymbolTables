@@ -7,6 +7,17 @@ A program using symbol tables to help find matches in a set of data from a user'
 
 ![whiteboard-1](https://github.com/AlgoPHS/SymbolTables/raw/similar-objects-finder/similar-objects-finder/similar-objects-finder.png)
 
+Compiling
+-------------------
+
+The program is structured within the simfinder package, so compile from the
+root directory with `javac simfinder/Driver.java`.
+
+Usage
+-------------------
+
+Run the program as `java simfinder.Driver data/places.txt`. It takes one command line argument, the name of a data file to read in. The current driver will then prompt the user to choose a value for each option, then calculate and display the best options.
+
 Input Format
 -------------------
 
