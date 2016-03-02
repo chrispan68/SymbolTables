@@ -13,7 +13,8 @@ public class InputObject {
     public InputObject(String oid, String[] headers, String[] values) {
 	if (headers.length != values.length) {
 	    // Sanity Check
-	    throw new RuntimeException("Mismatched headers and values!");
+	    throw new RuntimeException("Mismatched headers and values parsing "
+				       + oid + "!");
 	}
 		attributes = new FieldValue[headers.length];
 		id = oid;

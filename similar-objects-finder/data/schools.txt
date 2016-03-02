@@ -1,0 +1,22 @@
+Name	Size	Climate	Affiliation	Type
+Yale	Medium	Average	Private	National University
+Harvard	Medium	Cold	Private	National University
+Rutgers	Large	Average	Public	National University
+University of Miami	Large	Hot	Public	National University
+Stanford	Medium	Hot	Private	National University
+University of Chicago	Large	Cold	Public	National University
+Rice University	Small	Hot	Private	National University
+University of California	Large	Hot	Public	National University
+University of Virgina	Medium	Average	Public	National University
+Boston College	Medium	Cold	Private	National University
+New York University	Medium	Average	Private	National University
+Williams College	Small	Average	Private	Liberal Arts College
+Amherst College	Small	Cold	Private	Liberal Arts College
+Bowdoin College	Small	Cold	Private	Liberal Arts College
+Pomona College	Small	Hot	Private	Liberal Arts College
+West Point	Medium	Average	Private	Liberal Arts College
+Bates College	Small	Cold	Private	Liberal Arts College
+Colorado College	Small	Hot	Private	Liberal Arts College
+Johns Hopkins University	Medium	Cold	Private	National University
+Wake Forest University	Medium	Average	Private	National University
+University of Florida	Large	Hot	Public	National University
