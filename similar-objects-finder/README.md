@@ -27,3 +27,24 @@ line being a header.
 The first column shall be a unique identifier for items, such as a name. All
 headers and values will be processed as strings.
 
+See the sample files in the `data` folder for examples.
+
+Implementation
+--------------------
+
+Much of the code deals with parsing input from a fairly human-readable format,
+and getting it into the data structures needed for efficient calculations.
+
+The `InputObject` class creates an array of `FieldValue` objects based on
+arrays of headers and values. `FieldValue` objects store a header-value pair,
+and support equality and hashcode based on their contents, so support being
+used as map keys where multiple objects with the same values will be the same
+key. The `Parser` class provides a static method to read from a `File` object
+and return an `ArrayList` of `InputObject`s.
+
+The `Calculator` constructor runs in linear time to place the data into a
+structure that allows for efficient calculations, namely a mapping of
+`FieldValue` combinations to `Set`s of `String` object IDs. It also provides
+access to a list of blank `FieldValue` objects suitable for submitting to the
+`calculate` method, and a method for retrieving the options available for a
+given header key.

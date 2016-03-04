@@ -15,18 +15,17 @@ public class Parser {
         String line;
         String[] currentLine;
         while ((line = br.readLine()) != null) {
-        currentLine = line.split("\t");
-        String id = currentLine[0];
-        String [] values = arraySlice(currentLine);
-        data.add(new InputObject(id,headers,values));
-    }
+	    currentLine = line.split("\t");
+	    String id = currentLine[0];
+	    String [] values = arraySlice(currentLine);
+	    data.add(new InputObject(id,headers,values));
+	}
         in.close();
-
         return data;
     }
 
     private static String[] arraySlice(String[] s) {
-    return Arrays.copyOfRange(s, 1, s.length);
+	return Arrays.copyOfRange(s, 1, s.length);
     }
     
 }
