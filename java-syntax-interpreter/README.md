@@ -35,4 +35,4 @@ $ java Interpreter
 ```
 
 ## Other Notes
-I could have used regular expressions but those would defeat the purpose: I wanted to build as much from scratch as possible. In the future, one feature I may add is the ability to parse self-modifying code just as allowed by lisp macros or python's lambda expressions.
+I could have used regular expressions but those would defeat the purpose: I wanted to build as much from scratch as possible. In the future, one feature I may add is the ability to parse self-modifying code just as allowed by lisp macros or python's lambda expressions. Also, I may extend the interpreter so that it can handle floating-point arithmetic and non-numerical syntax such as conditionals, control loops, and assignments.
