@@ -89,7 +89,7 @@ class iupacNaming:
         mainCompound.addSideChains(sideChains)
         return mainCompound
         
-        
+    #######below is a bunch of helper methods for the parser##########
     def cropPrefix(self, string):
         for i in range(1, len(string)-1):
             if string[i:i+2] == 'yl':
@@ -131,10 +131,8 @@ class iupacNaming:
             return self.alkaneRoots[name]
         if name in self.suffixes:
             return self.suffixes[name]
-        ##################
         if name in self.hyphenatedPrefixes:
             return self.hyphenatedPrefixes[name]
-       #############return error
         return None 
 
 while True:
