@@ -140,39 +140,21 @@ class iupacNaming:
 while True:
     thing = iupacNaming()
     original = thing.getName()
-    compound = thing.stringToComp(original)
-    compound.configure()
-    pygame.init()
-    screen = pygame.display.set_mode((400, 300))
-    background = pygame.Surface(screen.get_size())
-    background.fill((255,255,255))
-    screen.blit(background, (0, 0))
-    pygame.display.set_caption('IUPAC Naming')
-    compound.draw(screen)
-    pygame.display.update()
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-    
-##    thing = iupacNaming()
-##    original = thing.getName()
-##    try:
-##        compound = thing.stringToComp(original)
-##        compound.configure()
-##        pygame.init()
-##        screen = pygame.display.set_mode((400, 300))
-##        background = pygame.Surface(screen.get_size())
-##        background.fill((255,255,255))
-##        screen.blit(background, (0, 0))
-##        pygame.display.set_caption('IUPAC Naming')
-##        compound.draw(screen)
-##        pygame.display.update()
-##        for event in pygame.event.get():
-##            if event.type == QUIT:
-##                pygame.quit()
-##                sys.exit()
-##    except:
-##        print("That is not a valid name.")
+    try:
+        compound = thing.stringToComp(original)
+        compound.configure()
+        pygame.init()
+        screen = pygame.display.set_mode((400, 300))
+        background = pygame.Surface(screen.get_size())
+        background.fill((255,255,255))
+        screen.blit(background, (0, 0))
+        pygame.display.set_caption('IUPAC Naming')
+        compound.draw(screen)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+    except:
+        print("That is not a valid name.")
 
