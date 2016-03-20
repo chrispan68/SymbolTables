@@ -1,7 +1,13 @@
+#Daphne KH
+#python 3.4
+#march 2015
+#IUPAC Naming project
+#class for the backbone of a carbon molecule
+
+
 import pygame, sys
 from pygame.locals import*
 import math
-import time
 from line import line
 
 #makes a collection a collection of lines to make up the representation of a
@@ -47,41 +53,8 @@ class carbonBackbone:
             sy = self.lines[i].endPos[1]
         return self.lines
 
-    #parameters: carbon number, the __th side chain (if there is already one side chain on that carbon it would be 2, if there arent any yet it would be 1, etc.)
-    #returns the angle for the side chain on that carbon
-    def getSideChainAngles(self, cNum, scNum, numLocations):
-        #determines adjustement based on scNum
-        if self.cycloBool:
-            if scNum == 1:
-                adjustment = -(math.pi*2 - math.pi/self.numC)/3
-            else:
-                adjustment = (math.pi*2 - math.pi/self.numC)/3
-        else:
-            if scNum == 1:
-                adjustment = 0
-            elif cNum > 1 and cNum < self.numC:
-                adjustment = math.pi
-            else:
-                if scNum == 2:
-                    adjustment = math.pi/2
-                else:
-                    adjustment = math.pi
-        #returns the angle
-        if cNum > 1 and cNum < self.numC: #check that not one of end carbons
-            if (self.lines[cNum-1].getCartesianAngle(True) < 2*math.pi         and       self.lines[cNum-2].getCartesianAngle(False) < math.pi    and    self.lines[cNum-1].getCartesianAngle(True) > math.pi): 
-                return ( self.lines[cNum-1].getCartesianAngle(True) + self.lines[cNum-2].getCartesianAngle(False) )/2   + adjustment
-            return ( self.lines[cNum-1].getCartesianAngle(True) + self.lines[cNum-2].getCartesianAngle(False) )/2 + math.pi  + adjustment
-        if self.cycloBool:
-            if (self.lines[0].getCartesianAngle(True) < 2*math.pi         and       self.lines[-1].getCartesianAngle(False)  < math.pi    and    self.lines[0].getCartesianAngle(True) > math.pi):
-                return ( self.lines[0].getCartesianAngle(True) + self.lines[-1].getCartesianAngle(False) )/2 + adjustment
-            return ( self.lines[0].getCartesianAngle(True) + self.lines[-1].getCartesianAngle(False) )/2 + adjustment
-        if cNum == 1:
-            return math.pi - self.lines[cNum - 1].getCartesianAngle(True) + adjustment
-        if cNum == self.numC:
-            print(adjustment*180/math.pi, "  a")
-            return math.pi - self.lines[cNum - 2].getCartesianAngle(False) + adjustment
-        #the cNum has to be between 0 and numC+1  (exculsice between)
-
+    #returns the angles of the side chains that would go at the locations given as the parameter 
+    #return value is a 2D array with list of angles at indexes corresponding to the carbon number - 1
     def getAngles(self, locations):
         numLocs = []
         angles = []
