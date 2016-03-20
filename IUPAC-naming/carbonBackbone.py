@@ -84,12 +84,12 @@ class carbonBackbone:
             else:
                 for i in range(numLocs[k]):
                     if numLocs[k] == 1:
-                        adjustment = 0
+                        adjustment = math.pi
                     elif numLocs[k] == 2: 
                         if (k == 0 or k == self.numC -1): #first/last carbon
-                            adjustment = math.pi/3*(i-1)
+                            adjustment = math.pi/3*(i)
                         else:
-                            adjustment = math.pi*(i)
+                            adjustment = math.pi*(i+1)
                     else:
                         adjustment = math.pi/2*(i-1)
                     if k > 0 and k < self.numC-1: #mid carbon
