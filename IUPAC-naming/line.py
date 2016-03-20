@@ -1,7 +1,9 @@
+#Daphne KH
+#python 3.4
+#IUPAC Naming
 import pygame, sys
 from pygame.locals import*
 import math
-import time
 
 #the line class makes objects that once made, can be easily drawn with pygame by
 #just calling one method with one parameter. There are more methods to move, rotate, etc. the text
