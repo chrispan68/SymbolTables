@@ -20,11 +20,11 @@ class iupacNaming:
     def __init__(self):
         loc = [0,0] #initial location for side chains
         bol = False #cycloBool
-        self.suffixes = {'ol': text('OH', loc, 0),  'ene': "double bond", 'en': "double bond", 'yne': "triple bond", 'yn': "triple bond", 'yl': "nothing - yl", 'ane': "alkane", 'an': "alkane" }
+        self.suffixes = {'ol': text('OH', loc, 0), 'amine': text('NH2',loc, 0), 'ene': "double bond", 'en': "double bond", 'yne': "triple bond", 'yn': "triple bond", 'yl': "nothing - yl", 'ane': "alkane", 'an': "alkane" }
         self.numberPrefixes = {'di': 2, 'mono': 1, 'tri': 3,'quat': 4}
  #       self.numberPrefixes = {'di': 2, 'mono': 1, 'tri': 3,'quat': 4, 'penta': 5, 'hexa': 6, 'septa': 7, 'octa': 8, 'nona': 9, 'deca': 10, 'hendeca': 11, 'icosa': 20}
         self.alkaneRoots = {'meth': line(loc, 0, 0), 'eth': carbonBackbone( loc, 2, bol) , 'prop': carbonBackbone( loc, 3, bol) , 'but': carbonBackbone( loc, 4, bol) , 'pent': carbonBackbone( loc, 5, bol) , 'hex': carbonBackbone( loc, 6, bol) , 'hept': carbonBackbone( loc, 7, bol) , 'oct': carbonBackbone( loc, 8, bol) , 'non': carbonBackbone( loc, 9, bol) , 'dec': carbonBackbone( loc, 10, bol) , 'undec': carbonBackbone( loc, 11, bol) , 'dodec': carbonBackbone( loc, 12, bol) }
-        self.sideChainRoots = {'iodo': text('I', loc, 0), 'chloro': text('Cl', loc, 0),'floro': text('F', loc, 0), 'bromo': text('Br', loc, 0),'vin': "weird thing", 'benz': "benzene ring", "hydroxy": text('OH',loc, 0)  } #sec-butyl, isoStuff, tertStuff 
+        self.sideChainRoots = {'iodo': text('I', loc, 0), 'chloro': text('Cl', loc, 0),'floro': text('F', loc, 0), 'bromo': text('Br', loc, 0), "hydroxy": text('OH',loc, 0)  } #sec-butyl, isoStuff, tertStuff 
         self.hyphenatedPrefixes = {'sec': "thing 1", 'tert': "thing 2"}
     
     def getName(self):
